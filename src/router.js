@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -18,6 +19,31 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/system',
+      name: 'system',
+      component: () => import('./views/System.vue')
+    },
+    {
+      path: '/solution',
+      name: 'solution',
+      component: ()=>import('./views/Solution.vue')
+    },
+    {
+      path:'/product',
+      name:'product',
+      component:()=>import('./views/Product.vue')
+    },
+    {
+      path:'/area',
+      name:'area',
+      component:()=>import('./views/Area.vue')
+    },
+    {
+      path:'/case',
+      name:'case',
+      component:()=>import('./views/Case.vue')
     }
   ]
 })

@@ -24,7 +24,14 @@
       <el-main  class="main">
         <router-view/>
       </el-main>
-      <el-footer  class="footer"></el-footer>
+      <el-footer  class="footer">
+        <el-card class="box-card">
+          <div v-for="(item,i) in infoList" :key="i" class="text" v-html="item.text"></div>
+        </el-card>
+        <div class="qycode">
+
+        </div>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -41,22 +48,38 @@ export default {
         {tag:'应用领域',router:'/area',navActive:false},
         {tag:'项目案例',router:'/case',navActive:false},
         {tag:'安e商城',router:''},
+      ],
+      infoList:[
+        {text:'©2014大华股份 DESIGNED BY: 小华科技 '},
+        {text:'集团链接： <a href="https://www.dahuatech.com/">大华股份</a>'},
+        {text:'公司地址：浙江省杭州市滨江区滨安路1187号'},
+        {text:'电话：+86-571-28983132    +86-571-28991065'},
       ]
     }
   },
   created(){
-
+    this.justifyRoute(this.$route.path)
   },
   mounted(){
-
+    var ane=document.querySelector('.nav .el-col:last-child a');
+    ane.onclick=function(){
+      window.location.href="http://60.12.11.59:8084/"
+      return false;
+    }
   },
   methods:{
-    crouter(){
-      alert(1)
-      for(var i=0;i<this.navList.length;i++){
+    justifyRoute(route_path){
+      for(let i=0;i<this.navList.length;i++){
         this.navList[i].navActive=false;
+        if(route_path==this.navList[i].router){
+          this.navList[i].navActive=true;
+        }
       }
-      item.navActive=true;
+    }
+  },
+  watch:{
+    $route(to){
+      this.justifyRoute(to.path)
     }
   }
 }
@@ -68,6 +91,7 @@ export default {
   }
   .header{
     text-align: center;
+    height:100% !important;
     .logo-row{
       width:980px;
       margin:0 auto;
@@ -98,6 +122,47 @@ export default {
   }
 
   .nav_active{
-    background:#D9070A;
+    background:#D9070A !important;
+  }
+
+  .footer{
+    position:fixed;
+    bottom: 0;
+    left:0;
+    z-index:1000;
+    height:117px !important;
+    width:100%;
+    background-color: #7D7F84 !important;
+    .box-card{
+      margin:auto 0;
+      border:1px solid #7D7F84;
+      border-radius:0;
+      height:100%;
+      
+      .el-card__body {
+        padding: 10px 10px 10px 150px;
+        background-color: #7D7F84 !important;
+      }
+      .text {
+        font: normal 12px/24px "Microsoft YaHei";
+        color:white;
+      }
+      a{
+        text-decoration: underline;
+        color:white;
+        &:hover{
+          color:#d1d3d8;
+        }
+      }
+    }
+    
+    .qycode{
+      position: absolute;
+      height:200px;
+      width:200px;
+      top:10px;
+      right:150px;
+      background: url(./assets/img/foot_er.jpg) no-repeat right 0;
+    }
   }
 </style>
