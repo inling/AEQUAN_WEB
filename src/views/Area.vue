@@ -2,7 +2,7 @@
   <div id="area">
     <el-carousel :interval="5000" :loop="true" height="450px">
       <el-carousel-item v-for="(item,i) in carouselList" :key="i">
-        <img :src="item.url" alt="" style="margin-left:-400px">
+        <img :src="item.src" alt="" style="margin-left:-400px">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -12,14 +12,24 @@
 export default {
   data(){
     return{
-      carouselList:[
-        {url:'../../img/area/5-1.png'},
-        {url:'../../img/area/5-2.png'},
-        {url:'../../img/area/5-3.png'},
-        {url:'../../img/area/5-4.png'}
-      ]
+      carouselList:[]
+    }
+  },  
+  created(){
+
+  },
+  mounted(){
+    this.getCList();
+  },
+  methods:{
+    getCList(){
+      var self=this;
+      this.$axios.get('http://127.0.0.1:3000/index/Area').then(res=>{
+        self.carouselList=res.data;
+      })
     }
   }
+
 }
 </script>
 
